@@ -1,0 +1,163 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PANOPRO — AI Backoffice Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#eef2f7;}
+  .pano-dash{--bg:#f4f7fb;--card:#ffffff;--ink:#0f2233;--muted:#5b7186;--line:#e3ebf3;
+    --cyan:#0891b2;--cyan-soft:#e0f5fa;--green:#15a34a;--amber:#d97706;--red:#dc2626;
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);
+    background:var(--bg);padding:22px;border-radius:16px;line-height:1.45;}
+  .pano-dash *{box-sizing:border-box;margin:0;}
+  .pd-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;
+    background:#0a1626;padding:14px 20px;border-radius:14px;border:1px solid rgba(0,229,255,.18);}
+  .pd-brand{display:flex;align-items:center;gap:12px;}
+  .pd-logo-mark{flex-shrink:0;line-height:0;}
+  .pd-wordmark{font-family:'Exo 2','Inter',sans-serif;font-weight:800;font-size:20px;letter-spacing:.14em;
+    color:#eafdff;line-height:1.1;}
+  .pd-tag{font-size:8px;letter-spacing:.18em;color:#00b8cc;text-transform:uppercase;margin-top:3px;}
+  .pd-meta{display:flex;align-items:center;gap:9px;font-size:11px;color:#9fb4c4;}
+  .badge{font-size:10px;font-weight:700;padding:4px 9px;border-radius:20px;letter-spacing:.04em;}
+  .badge.dry{background:#fff7e6;color:#b45309;border:1px solid #fde6b8;}
+  .badge.live{background:#e7f9ee;color:#15803d;border:1px solid #bbe9cb;}
+  .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;margin-bottom:20px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 14px;
+    box-shadow:0 1px 2px rgba(15,34,51,.04);}
+  .kpi-val{font-size:23px;font-weight:800;letter-spacing:-.02em;}
+  .kpi-lbl{font-size:10.5px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.04em;}
+  .kpi.accent .kpi-val{color:var(--cyan);} .kpi.warn .kpi-val{color:var(--amber);} .kpi.bad .kpi-val{color:var(--red);}
+  .sec{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 17px;margin-bottom:16px;
+    box-shadow:0 1px 2px rgba(15,34,51,.04);}
+  .sec-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;margin-bottom:13px;}
+  .sec-h .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);}
+  .sec-h .count{margin-left:auto;font-size:11px;font-weight:600;color:var(--muted);}
+  .mail{display:flex;gap:11px;padding:11px 0;border-top:1px solid var(--line);}
+  .mail:first-of-type{border-top:none;}
+  .urg{width:9px;height:9px;border-radius:50%;margin-top:5px;flex-shrink:0;}
+  .urg.nizka{background:var(--green);} .urg.stredni{background:var(--amber);} .urg.vysoka{background:var(--red);}
+  .mail-body{flex:1;min-width:0;}
+  .mail-top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .cat{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--cyan-soft);color:var(--cyan);letter-spacing:.03em;}
+  .cat.jine{background:#eef2f6;color:#64748b;}
+  .cat.reklamace{background:#fdeaea;color:#dc2626;} .cat.urgence{background:#fdeaea;color:#dc2626;}
+  .cat.faktura{background:#eef7e9;color:#15803d;}
+  .mail-subj{font-weight:700;font-size:12.5px;}
+  .mail-from{font-size:11px;color:var(--muted);}
+  .mail-sum{font-size:11.5px;color:#3a5266;margin-top:3px;}
+  .mail-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+  .tag{font-size:10px;padding:2px 7px;border-radius:6px;background:#f1f5f9;color:#475569;border:1px solid var(--line);}
+  .tag.owner{background:#eef9fb;color:#0e7490;border-color:#cbeef5;}
+  .tag.danger{background:#fdeaea;color:#c0392b;border-color:#f6caca;}
+  table{width:100%;border-collapse:collapse;font-size:11.5px;}
+  th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);
+    padding:6px 8px;border-bottom:2px solid var(--line);}
+  td{padding:8px;border-bottom:1px solid var(--line);}
+  tr:last-child td{border-bottom:none;}
+  tbody tr{transition:background .15s;} tbody tr:hover{background:#f5fafd;}
+  .pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
+  .pill.ok{background:#e7f9ee;color:#15803d;} .pill.miss{background:#fdeaea;color:#dc2626;}
+  .pill.paid{background:#eef2f6;color:#64748b;}
+  .pill.l1{background:#e7f9ee;color:#15803d;} .pill.l2{background:#fff7e6;color:#b45309;} .pill.l3{background:#fdeaea;color:#dc2626;}
+  .num{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap;}
+  .aging{display:flex;gap:9px;margin-bottom:13px;flex-wrap:wrap;}
+  .age-box{flex:1;min-width:90px;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fafcfe;}
+  .age-box b{font-size:18px;display:block;} .age-box span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  .age-box.esc{border-color:#f6caca;background:#fff5f5;} .age-box.esc b{color:var(--red);}
+  .pd-foot{font-size:10px;color:var(--muted);text-align:center;margin-top:6px;letter-spacing:.03em;}
+  @media(max-width:680px){.kpis{grid-template-columns:repeat(3,1fr);}}
+  </style></head>
+<body><div class="pano-dash">
+    <div class="pd-head">
+      <div class="pd-brand">
+        <div class="pd-logo-mark"><svg width="38" height="38" viewBox="0 0 34 34" fill="none" role="img" aria-label="PANOPRO">
+<defs><linearGradient id="chl" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0A1F3A"/><stop offset="1" stop-color="#071428"/></linearGradient></defs>
+<rect width="34" height="34" rx="9" fill="url(#chl)" stroke="rgba(0,229,255,.28)" stroke-width="1"/>
+<line x1="17" y1="4" x2="17" y2="12" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="17" y1="22" x2="17" y2="30" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="4" y1="17" x2="12" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="22" y1="17" x2="30" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="17" cy="17" r="4.5" stroke="#00E5FF" stroke-width="1.5" fill="none"/>
+<circle cx="17" cy="17" r="1.5" fill="#00E5FF"/>
+<path d="M4 9 L4 4 L9 4" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
+<path d="M30 9 L30 4 L25 4" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
+<path d="M4 25 L4 30 L9 30" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
+<path d="M30 25 L30 30 L25 30" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
+</svg></div>
+        <div>
+          <div class="pd-wordmark">PANOPRO</div>
+          <div class="pd-tag">AI Backoffice · automatizace e-mailů, účetní a pohledávek</div>
+        </div>
+      </div>
+      <div class="pd-meta"><span>28. 6. 2026 17:52:08</span>
+        <span class="badge dry">TESTOVACÍ REŽIM</span></div>
+    </div>
+
+    <div class="kpis"><div class="kpi "><div class="kpi-val">6</div><div class="kpi-lbl">E-maily zpracováno</div></div><div class="kpi accent"><div class="kpi-val">1</div><div class="kpi-lbl">Poptávky</div></div><div class="kpi "><div class="kpi-val">5</div><div class="kpi-lbl">Faktury v registru</div></div><div class="kpi warn"><div class="kpi-val">1</div><div class="kpi-lbl">Chybějící doklady</div></div><div class="kpi bad"><div class="kpi-val">3</div><div class="kpi-lbl">Po splatnosti</div></div><div class="kpi bad"><div class="kpi-val">70 000 CZK</div><div class="kpi-lbl">Dlužná částka</div></div></div>
+
+    <div class="sec"><div class="sec-h"><span class="dot"></span>E-mailová triage
+      <span class="count">6 e-mailů</span></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
+      <div class="mail-top"><span class="cat poptavka">Poptávka</span>
+        <span class="mail-subj">Poptávka – pasport budovy obecního úřadu</span></div>
+      <div class="mail-from">od: Obec Dolní Lhota &lt;starosta@dolnilhota.cz&gt;</div>
+      <div class="mail-sum">Obec Dolní Lhota poptává zpracování pasportu budovy obecního úřadu (2 NP, cca 600 m²) dle vyhlášky 131/2024 Sb.</div>
+      <div class="mail-tags"><span class="tag owner">→ Obchod PANOPRO</span><span class="tag">CRM: obchodní případ</span><span class="tag">CRM: úkol</span><span class="tag">Koncept odpovědi</span></div></div></div><div class="mail"><div class="urg nizka"></div><div class="mail-body">
+      <div class="mail-top"><span class="cat faktura">Faktura</span>
+        <span class="mail-subj">Faktura č. 2026045 – pronájem laserového skeneru</span></div>
+      <div class="mail-from">od: GEOservis s.r.o. &lt;fakturace@geoservis.cz&gt;</div>
+      <div class="mail-sum">Dodavatel GEOservis s.r.o. zasílá fakturu za pronájem laserového skeneru Leica BLK360.</div><div class="mail-sum"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>GEOservis s.r.o. · <b>24200 CZK</b> · splatnost 2026-07-12 · VS 2026045</div>
+      <div class="mail-tags"><span class="tag owner">→ Účetnictví PANOPRO</span><span class="tag">Zápis do registru</span><span class="tag">CRM: úkol</span></div></div></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
+      <div class="mail-top"><span class="cat faktura">Faktura</span>
+        <span class="mail-subj">Faktura za hosting 06/2026</span></div>
+      <div class="mail-from">od: CloudHost &lt;billing@cloudhost.com&gt;</div>
+      <div class="mail-sum">Faktura za hosting 06/2026 od CloudHost na 1 490 Kč se splatností 30.6.2026.</div><div class="mail-sum"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CloudHost · <b>1490 CZK</b> · splatnost 2026-06-30 · VS 6002026</div>
+      <div class="mail-tags"><span class="tag owner">→ Účetnictví PANOPRO</span><span class="tag">Zápis do registru</span><span class="tag danger">Chybí doklad</span><span class="tag">CRM: úkol</span></div></div></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
+      <div class="mail-top"><span class="cat reklamace">Reklamace</span>
+        <span class="mail-subj">Reklamace – nesrovnalosti v dodaném pasportu</span></div>
+      <div class="mail-from">od: Ing. Novák &lt;novak@developer.cz&gt;</div>
+      <div class="mail-sum">Zákazník reklamuje chyby v dodaném pasportu (chybějící kóty a špatná výměra ve 2. NP) a žádá opravu a nové vyhotovení.</div>
+      <div class="mail-tags"><span class="tag owner">→ Podpora PANOPRO</span><span class="tag">CRM: úkol</span><span class="tag">Koncept odpovědi</span></div></div></div><div class="mail"><div class="urg vysoka"></div><div class="mail-body">
+      <div class="mail-top"><span class="cat urgence">Urgence</span>
+        <span class="mail-subj">Termín podání nabídky – zítra do 12:00</span></div>
+      <div class="mail-from">od: Krajský úřad – veřejné zakázky &lt;zakazky@kraj.cz&gt;</div>
+      <div class="mail-sum">Krajský úřad připomíná, že lhůta pro podání nabídky do výběrového řízení na 3D zaměření objektu končí zítra ve 12:00 a žádá o potvrzení účasti ještě dnes.</div>
+      <div class="mail-tags"><span class="tag owner">→ Obchod PANOPRO</span><span class="tag">CRM: úkol</span><span class="tag">Koncept odpovědi</span></div></div></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
+      <div class="mail-top"><span class="cat jine">Jiné</span>
+        <span class="mail-subj">[Traiva2911/panopro-advisor] Run failed: Build and deploy</span></div>
+      <div class="mail-from">od: GitHub &lt;notifications@github.com&gt;</div>
+      <div class="mail-sum">GitHub Actions oznámení o selhání workflow Build and deploy do Azure Web App na větvi master.</div>
+      <div class="mail-tags"><span class="tag owner">→ Podpora PANOPRO</span></div></div></div></div>
+
+    <div class="sec"><div class="sec-h"><span class="dot"></span>Registr faktur
+      <span class="count">5 položek</span></div>
+      <table><thead><tr><th>Dodavatel</th><th>Částka</th><th>Splatnost</th><th>VS</th><th>Doklad</th><th>Stav</th></tr></thead>
+      <tbody><tr><td>GEOservis s.r.o.</td><td class="num">24200 CZK</td>
+      <td>2026-07-12</td><td class="num">2026045</td>
+      <td><span class="pill ok">ano</span></td><td><span class="pill ok">K zaúčtování</span></td></tr><tr><td>CloudHost</td><td class="num">1490 CZK</td>
+      <td>2026-06-30</td><td class="num">6002026</td>
+      <td><span class="pill miss">CHYBÍ</span></td><td><span class="pill miss">Chybí doklad</span></td></tr><tr><td>Alfa s.r.o.</td><td class="num">12100 CZK</td>
+      <td>2026-06-23</td><td class="num">2026101</td>
+      <td><span class="pill ok">ano</span></td><td><span class="pill ok">K zaúčtování</span></td></tr><tr><td>Beta a.s.</td><td class="num">48000 CZK</td>
+      <td>2026-06-16</td><td class="num">2026102</td>
+      <td><span class="pill ok">ano</span></td><td><span class="pill ok">K zaúčtování</span></td></tr><tr><td>Gama spol.</td><td class="num">9900 CZK</td>
+      <td>2026-05-28</td><td class="num">2026103</td>
+      <td><span class="pill ok">ano</span></td><td><span class="pill ok">K zaúčtování</span></td></tr></tbody></table></div>
+
+    <div class="sec"><div class="sec-h"><span class="dot"></span>Pohledávky po splatnosti
+      <span class="count">70 000 CZK</span></div>
+      <div class="aging">
+        <div class="age-box"><b>1</b><span>do 7 dní</span></div>
+        <div class="age-box"><b>1</b><span>8–30 dní</span></div>
+        <div class="age-box"><b>1</b><span>30+ dní</span></div>
+        <div class="age-box esc"><b>1</b><span>eskalace</span></div>
+      </div>
+      <table><thead><tr><th>Dlužník</th><th>Částka</th><th>Po splatnosti</th><th>VS</th><th>Akce</th></tr></thead>
+      <tbody><tr><td>Gama spol.</td><td class="num">9900 CZK</td>
+      <td class="num">31 dní</td><td class="num">2026103</td>
+      <td><span class="pill l3">Eskalace</span></td></tr><tr><td>Beta a.s.</td><td class="num">48000 CZK</td>
+      <td class="num">12 dní</td><td class="num">2026102</td>
+      <td><span class="pill l2">2. upomínka</span></td></tr><tr><td>Alfa s.r.o.</td><td class="num">12100 CZK</td>
+      <td class="num">5 dní</td><td class="num">2026101</td>
+      <td><span class="pill l1">1. upomínka</span></td></tr></tbody></table></div>
+
+    <div class="pd-foot">Vygenerováno AI Backoffice Agentem · data z testovacího běhu (nic se neodeslalo)</div>
+  </div></body></html>
