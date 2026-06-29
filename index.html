@@ -11,15 +11,9 @@
   .pano-dash *{box-sizing:border-box;margin:0;}
   .pd-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;flex-wrap:wrap;
     background:#0a1626;padding:14px 20px;border-radius:14px;border:1px solid rgba(0,229,255,.18);}
-  .pd-brand{display:flex;align-items:center;gap:12px;}
-  .pd-logo-mark{flex-shrink:0;line-height:0;}
-  .pd-wordmark{font-family:'Exo 2','Inter',sans-serif;font-weight:800;font-size:21px;letter-spacing:.04em;
-    line-height:1.1;display:inline-flex;align-items:center;color:#eafdff;}
-  .pd-wordmark .pro{color:#00E5FF;}
-  .pd-wordmark .bar{width:4px;height:18px;border-radius:1px;}
-  .pd-wordmark .bar.l{background:#eafdff;margin-right:6px;}
-  .pd-wordmark .bar.c{background:#00E5FF;margin-left:6px;}
-  .pd-tag{font-size:8px;letter-spacing:.18em;color:#00b8cc;text-transform:uppercase;margin-top:3px;}
+  .pd-brand{display:flex;align-items:center;gap:13px;}
+  .pd-logo-img{height:30px;width:auto;object-fit:contain;}
+  .pd-prod{font-size:9.5px;letter-spacing:.16em;color:#62cfe6;text-transform:uppercase;padding-left:13px;border-left:1px solid rgba(0,229,255,.25);}
   .pd-meta{display:flex;align-items:center;gap:9px;font-size:11px;color:#9fb4c4;}
   .badge{font-size:10px;font-weight:700;padding:4px 9px;border-radius:20px;letter-spacing:.04em;}
   .badge.dry{background:#fff7e6;color:#b45309;border:1px solid #fde6b8;}
@@ -73,26 +67,10 @@
 <body><div class="pano-dash">
     <div class="pd-head">
       <div class="pd-brand">
-        <div class="pd-logo-mark"><svg width="38" height="38" viewBox="0 0 34 34" fill="none" role="img" aria-label="PANOPRO">
-<defs><linearGradient id="chl" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0A1F3A"/><stop offset="1" stop-color="#071428"/></linearGradient></defs>
-<rect width="34" height="34" rx="9" fill="url(#chl)" stroke="rgba(0,229,255,.28)" stroke-width="1"/>
-<line x1="17" y1="4" x2="17" y2="12" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<line x1="17" y1="22" x2="17" y2="30" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<line x1="4" y1="17" x2="12" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<line x1="22" y1="17" x2="30" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<circle cx="17" cy="17" r="4.5" stroke="#00E5FF" stroke-width="1.5" fill="none"/>
-<circle cx="17" cy="17" r="1.5" fill="#00E5FF"/>
-<path d="M4 9 L4 4 L9 4" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
-<path d="M30 9 L30 4 L25 4" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
-<path d="M4 25 L4 30 L9 30" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
-<path d="M30 25 L30 30 L25 30" stroke="rgba(0,229,255,.45)" stroke-width="1" fill="none" stroke-linecap="round"/>
-</svg></div>
-        <div>
-          <div class="pd-wordmark"><span class="bar l"></span>PANO<span class="pro">PRO</span><span class="bar c"></span></div>
-          <div class="pd-tag">AI Backoffice · automatizace e-mailů, účetní a pohledávek</div>
-        </div>
+        <img class="pd-logo-img" src="https://panopro.cz/wp-content/uploads/2026/01/panopro-logo-claim-bile-2026.png" alt="PANOPRO">
+        <span class="pd-prod">AI Backoffice</span>
       </div>
-      <div class="pd-meta"><span>29. 6. 2026 10:04:05</span>
+      <div class="pd-meta"><span>29. 6. 2026 10:18:07</span>
         <span class="badge dry">TESTOVACÍ REŽIM</span></div>
     </div>
 
@@ -103,17 +81,17 @@
       <div class="mail-top"><span class="cat poptavka">Poptávka</span>
         <span class="mail-subj">Poptávka – pasport budovy obecního úřadu</span></div>
       <div class="mail-from">od: Obec Dolní Lhota &lt;starosta@dolnilhota.cz&gt;</div>
-      <div class="mail-sum">Obec Dolní Lhota poptává zpracování pasportu stavby budovy obecního úřadu (2 NP, cca 600 m²) dle vyhlášky 131/2024 Sb.</div>
+      <div class="mail-sum">Obec Dolní Lhota poptává zpracování pasportu stavby budovy obecního úřadu (2 NP, cca 600 m²) dle vyhlášky 131/2024 Sb. a žádá cenovou nabídku a termín.</div>
       <div class="mail-tags"><span class="tag owner">→ Obchod PANOPRO</span><span class="tag">CRM: obchodní případ</span><span class="tag">CRM: úkol</span><span class="tag">Koncept odpovědi</span></div></div></div><div class="mail"><div class="urg nizka"></div><div class="mail-body">
       <div class="mail-top"><span class="cat faktura">Faktura</span>
         <span class="mail-subj">Faktura č. 2026045 – pronájem laserového skeneru</span></div>
       <div class="mail-from">od: GEOservis s.r.o. &lt;fakturace@geoservis.cz&gt;</div>
-      <div class="mail-sum">Faktura od GEOservis s.r.o. za pronájem laserového skeneru Leica BLK360, částka 24 200 Kč se splatností 12.7.2026.</div><div class="mail-sum"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>GEOservis s.r.o. · <b>24200 CZK</b> · splatnost 2026-07-12 · VS 2026045</div>
-      <div class="mail-tags"><span class="tag owner">→ Účetnictví PANOPRO</span><span class="tag">Zápis do registru</span><span class="tag">CRM: úkol</span></div></div></div><div class="mail"><div class="urg nizka"></div><div class="mail-body">
+      <div class="mail-sum">Faktura od GEOservis s.r.o. za pronájem laserového skeneru Leica BLK360.</div><div class="mail-sum"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>GEOservis s.r.o. · <b>24200 CZK</b> · splatnost 2026-07-12 · VS 2026045</div>
+      <div class="mail-tags"><span class="tag owner">→ Účetnictví PANOPRO</span><span class="tag">Zápis do registru</span><span class="tag">CRM: úkol</span></div></div></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
       <div class="mail-top"><span class="cat faktura">Faktura</span>
         <span class="mail-subj">Faktura za hosting 06/2026</span></div>
       <div class="mail-from">od: CloudHost &lt;billing@cloudhost.com&gt;</div>
-      <div class="mail-sum">Faktura za hosting za 06/2026 od CloudHost na 1 490 Kč se splatností 30.6.2026.</div><div class="mail-sum"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CloudHost · <b>1490 CZK</b> · splatnost 2026-06-30 · VS 6002026</div>
+      <div class="mail-sum">Faktura za hosting na období 06/2026 ve výši 1 490 Kč se splatností 30.6.2026.</div><div class="mail-sum"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:5px" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>CloudHost · <b>1490 CZK</b> · splatnost 2026-06-30 · VS 6002026</div>
       <div class="mail-tags"><span class="tag owner">→ Účetnictví PANOPRO</span><span class="tag">Zápis do registru</span><span class="tag danger">Chybí doklad</span><span class="tag">CRM: úkol</span></div></div></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
       <div class="mail-top"><span class="cat reklamace">Reklamace</span>
         <span class="mail-subj">Reklamace – nesrovnalosti v dodaném pasportu</span></div>
@@ -123,12 +101,12 @@
       <div class="mail-top"><span class="cat urgence">Urgence</span>
         <span class="mail-subj">Termín podání nabídky – zítra do 12:00</span></div>
       <div class="mail-from">od: Krajský úřad – veřejné zakázky &lt;zakazky@kraj.cz&gt;</div>
-      <div class="mail-sum">Krajský úřad připomíná, že lhůta pro podání nabídky do výběrového řízení na 3D zaměření objektu končí zítra ve 12:00, a žádá potvrzení účasti ještě dnes.</div>
+      <div class="mail-sum">Krajský úřad připomíná, že lhůta pro podání nabídky do výběrového řízení na 3D zaměření objektu končí zítra ve 12:00 a žádá o potvrzení účasti ještě dnes.</div>
       <div class="mail-tags"><span class="tag owner">→ Obchod PANOPRO</span><span class="tag">CRM: úkol</span><span class="tag">Koncept odpovědi</span></div></div></div><div class="mail"><div class="urg stredni"></div><div class="mail-body">
       <div class="mail-top"><span class="cat jine">Jiné</span>
         <span class="mail-subj">[Traiva2911/panopro-advisor] Run failed: Build and deploy</span></div>
       <div class="mail-from">od: GitHub &lt;notifications@github.com&gt;</div>
-      <div class="mail-sum">GitHub notifikace o selhání workflow Build and deploy aplikace na Azure Web App ve větvi master.</div>
+      <div class="mail-sum">Automatické upozornění z GitHubu o selhání workflow Build and deploy na větvi master.</div>
       <div class="mail-tags"><span class="tag owner">→ Podpora PANOPRO</span></div></div></div></div>
 
     <div class="sec"><div class="sec-h"><span class="dot"></span>Registr faktur
