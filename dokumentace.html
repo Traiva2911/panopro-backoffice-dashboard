@@ -1,0 +1,454 @@
+<!doctype html><html lang="cs"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Backoffice Agent — Dokumentace</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--cyan:#0891b2;--navy:#0a1626;--ink:#0f2233;--muted:#5b7186;--line:#e3ebf3;--bg:#eef2f7;--card:#fff;}
+*{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;}
+.doc-head{background:var(--navy);color:#eafdff;padding:18px 24px;display:flex;align-items:center;gap:13px;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(0,229,255,.18);}
+.doc-head .wm{font-family:'Exo 2',sans-serif;font-weight:800;font-size:20px;letter-spacing:.14em;}
+.doc-head .sub{font-size:9px;letter-spacing:.18em;color:#00b8cc;text-transform:uppercase;margin-top:2px;}
+main{max-width:900px;margin:24px auto;padding:0 20px 60px;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px 38px;box-shadow:0 1px 3px rgba(15,34,51,.05);}
+h1{font-family:'Exo 2',sans-serif;font-size:25px;font-weight:800;color:var(--navy);margin:34px 0 14px;letter-spacing:.01em;}
+h1:first-child{margin-top:0;}
+main > .card > h1{border-bottom:2px solid var(--cyan);padding-bottom:10px;}
+h2{font-size:19px;font-weight:700;color:var(--navy);margin:30px 0 12px;padding-left:11px;border-left:4px solid var(--cyan);}
+h3{font-size:15px;font-weight:700;color:#1a3a52;margin:22px 0 8px;}
+p{margin:10px 0;}
+a{color:var(--cyan);text-decoration:none;border-bottom:1px solid rgba(8,145,178,.3);}
+a:hover{border-bottom-color:var(--cyan);}
+ul,ol{padding-left:22px;}li{margin:4px 0;}
+code{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#eef3f8;color:#0c5566;padding:1.5px 6px;border-radius:5px;}
+pre{background:var(--navy);color:#cfe9f0;border-radius:10px;padding:16px 18px;overflow-x:auto;font-size:12px;line-height:1.5;}
+pre code{background:none;color:inherit;padding:0;font-size:12px;}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13.5px;}
+th{background:#f2f7fb;text-align:left;padding:9px 12px;border-bottom:2px solid var(--line);color:var(--navy);font-weight:700;}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top;}
+tbody tr:hover{background:#f7fbfd;}
+blockquote{margin:14px 0;padding:11px 16px;background:#f0fafd;border-left:4px solid var(--cyan);border-radius:0 8px 8px 0;color:#1a3a52;}
+blockquote p{margin:4px 0;}
+hr{border:none;border-top:1px solid var(--line);margin:30px 0;}
+strong{color:var(--navy);font-weight:600;}
+.doc-foot{text-align:center;color:var(--muted);font-size:11px;margin-top:18px;}
+</style></head>
+<body>
+<div class="doc-head"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-label="PANOPRO">
+<defs><linearGradient id="chl" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0A1F3A"/><stop offset="1" stop-color="#071428"/></linearGradient></defs>
+<rect width="34" height="34" rx="9" fill="url(#chl)" stroke="rgba(0,229,255,.28)" stroke-width="1"/>
+<line x1="17" y1="4" x2="17" y2="12" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="17" y1="22" x2="17" y2="30" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="4" y1="17" x2="12" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<line x1="22" y1="17" x2="30" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="17" cy="17" r="4.5" stroke="#00E5FF" stroke-width="1.5" fill="none"/>
+<circle cx="17" cy="17" r="1.5" fill="#00E5FF"/></svg><div><div class="wm">PANOPRO</div><div class="sub">AI Backoffice Agent · Dokumentace</div></div></div>
+<main><div class="card"><h1>AI Backoffice Agent — Dokumentace</h1>
+<p>AI agent, který automatizuje firemní backoffice PANOPRO: třídění e-mailů, CRM úkoly, účetní podklady a hlídání pohledávek. „Mozkem&quot; je Claude, „rukama&quot; Zapier.</p>
+<p><strong>Dashboard (produkční URL):</strong> <code>https://black-mushroom-06036841e.7.azurestaticapps.net</code>
+<strong>Repozitář dashboardu:</strong> <code>https://github.com/Traiva2911/panopro-backoffice-dashboard</code> (větev <code>main</code>)
+<strong>Kód agenta:</strong> lokální projekt <code>C:\Users\amati\zapier-sdk</code> (TypeScript, Node 24)
+<strong>Hosting dashboardu:</strong> Azure Static Web Apps (Free tier) + GitHub Pages (záloha)</p>
+<blockquote>
+<p>Dokumentace má dvě části: <strong>Část A — Technická</strong> (správa, konfigurace, nasazení) a <strong>Část B — Pro Víťu</strong> (předvádění a prodej klientům).</p>
+</blockquote>
+<hr>
+<h1>ČÁST A — Technická dokumentace</h1>
+<h2>1. Architektura</h2>
+<pre><code>┌─────────────────────────────────────────────────────┐
+│  VSTUP – schránky (Zapier SDK, &quot;pull&quot;)              │
+│  zapier.ts                                          │
+│  • Gmail  (list_messages_v0)                        │
+│  • Outlook (new_email_personal)                     │
+│  → sjednocení do NormalizedEmail                    │
+├─────────────────────────────────────────────────────┤
+│  MOZEK – klasifikace (Claude API)                   │
+│  classify.ts                                        │
+│  Model: claude-opus-4-8 (structured outputs / Zod)  │
+│  → kategorie, urgence, owner, data faktury, odpověď │
+├─────────────────────────────────────────────────────┤
+│  AKCE – podle kategorie (vše pod dryRun)            │
+│  triage.ts + actions.ts + invoices.ts + receivables │
+│  • koncepty odpovědí (Gmail/Outlook)                │
+│  • úkoly + dealy (HubSpot REST API)                 │
+│  • registr faktur (.state/invoices.json)            │
+│  • upomínky 3 úrovní + eskalace                     │
+├─────────────────────────────────────────────────────┤
+│  VÝSTUP – dashboard                                 │
+│  dashboard.ts → dashboard.html → Azure / GitHub     │
+└─────────────────────────────────────────────────────┘
+</code></pre>
+<h3>Datový tok (jeden běh / &quot;tick&quot;)</h3>
+<ol>
+<li><code>triage.ts</code> načte přes <code>zapier.ts</code> nové e-maily z Gmailu i Outlooku (paralelně)</li>
+<li><code>state.ts</code> odfiltruje ty, které agent už viděl (kurzor v <code>.state/processed.json</code>)</li>
+<li>Každý nový e-mail jde do <code>classify.ts</code> → Claude vrátí zvalidovaný objekt (Zod)</li>
+<li><code>triage.ts</code> určí odpovědnou osobu (<code>taxonomy.ts</code>) a podle kategorie spustí akce</li>
+<li>Akce (<code>actions.ts</code>, <code>invoices.ts</code>, <code>receivables.ts</code>) respektují <code>config.dryRun</code></li>
+<li>Stav se uloží; <code>dashboard.ts</code> vykreslí výsledky do <code>dashboard.html</code></li>
+</ol>
+<hr>
+<h2>2. Struktura souborů</h2>
+<pre><code>zapier-sdk/
+├── src/
+│   ├── index.ts            # Vstupní bod ostrého běhu (npm run triage)
+│   ├── triage.ts           # ★ Orchestrace ticku (načti → klasifikuj → akce)
+│   ├── classify.ts         # ★ Klasifikace e-mailu Claudem (Zod schéma)
+│   ├── taxonomy.ts         # ★ PRAVIDLA: kdo co řeší, kontext firmy, urgence
+│   ├── config.ts           # ★ Konfigurace (model, schránky, dryRun, prahy)
+│   ├── actions.ts          # Akce: koncepty odpovědí, úkoly+dealy v HubSpotu
+│   ├── invoices.ts         # Modul 3 – registr faktur, chybějící doklad, párování VS
+│   ├── receivables.ts      # Modul 4 – upomínky, eskalace, report (aging)
+│   ├── dunning.ts          # Samostatný běh pohledávek (npm run receivables)
+│   ├── excel.ts            # Volitelné zrcadlo registru do Excelu
+│   ├── state.ts            # Paměť: zpracované e-maily + watchlist poptávek
+│   ├── zapier.ts           # Vrstva nad Zapier SDK (načtení + normalizace)
+│   ├── dashboard.ts        # ★ Renderer dashboardu (HTML + styly)
+│   ├── demo.ts             # ★ Bezpečný testovací stojan + generování dashboardu
+│   └── setup.ts            # Průvodce prvotním nastavením připojení
+│
+├── docs/
+│   ├── ai-backoffice-agent.md     # tato konsolidovaná dokumentace
+│   └── ai-backoffice-agent.html   # HTML verze (stejný obsah)
+│
+├── .state/                 # Paměť agenta (necommitovat)
+│   ├── processed.json      # Kurzor zpracovaných e-mailů + watchlist
+│   └── invoices.json       # Registr faktur (zdroj pravdy Modulů 3 a 4)
+│
+├── dashboard.html          # Vygenerovaný dashboard (artefakt npm run demo)
+├── .env                    # ANTHROPIC_API_KEY (necommitovat)
+├── package.json            # Skripty a závislosti
+└── tsconfig.json
+</code></pre>
+<p>Soubory označené ★ jsou ty, které budeš editovat nejčastěji.</p>
+<hr>
+<h2>3. Moduly (4 oblasti zadání)</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Modul</th>
+<th>Soubory</th>
+<th>Co dělá</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>E-mailová agenda</strong></td>
+<td><code>classify.ts</code>, <code>triage.ts</code></td>
+<td>Třídí (poptávka/faktura/urgence/reklamace/jiné), navrhuje odpovědi, přiřazuje osobě</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>CRM a obchod</strong></td>
+<td><code>actions.ts</code>, <code>state.ts</code></td>
+<td>Dealy + úkoly v HubSpotu, watchlist nezodpovězených poptávek</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Účetní agenda</strong></td>
+<td><code>invoices.ts</code>, <code>excel.ts</code></td>
+<td>Vytahuje dodavatele/částku/splatnost/VS, hlídá chybějící doklad, páruje dle VS</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Pohledávky</strong></td>
+<td><code>receivables.ts</code>, <code>dunning.ts</code></td>
+<td>Upomínky 3 úrovní, eskalace neplatičů, report (aging, sumy)</td>
+</tr>
+</tbody></table>
+<h3>Jak funguje klasifikace</h3>
+<p>Claude dostane od/předmět/přílohu/náhled textu a přes <strong>Zod schéma</strong> je donucen vrátit přesně tvarovaný objekt: <code>category</code>, <code>urgency</code>, <code>summary</code>, <code>owner</code>, <code>invoice</code> (jen u faktur), <code>suggestedReply</code>. Žádné parsování volného textu — co neprojde validací, spadne do bezpečného fallbacku (<code>jine</code>).</p>
+<hr>
+<h2>4. Pravidla a směrování (<code>src/taxonomy.ts</code>)</h2>
+<p>Tohle je „mozek pravidel&quot; — doménová znalost, kterou Claude sám neví.</p>
+<table>
+<thead>
+<tr>
+<th>Konstanta</th>
+<th>Co určuje</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>PEOPLE</code></td>
+<td>Role → jméno + e-mail (zatím vše <code>info@panopro.cz</code>)</td>
+</tr>
+<tr>
+<td><code>ROUTING</code></td>
+<td>Výchozí osoba podle kategorie</td>
+</tr>
+<tr>
+<td><code>BUSINESS_CONTEXT</code></td>
+<td>Popis firmy PANOPRO (služby, segmenty) pro přesnější klasifikaci</td>
+</tr>
+<tr>
+<td><code>URGENCY_HINTS</code></td>
+<td>Co znamená „vysoká urgence&quot;</td>
+</tr>
+</tbody></table>
+<h3>Přidání / změna odpovědné osoby</h3>
+<ol>
+<li>Otevři <code>src/taxonomy.ts</code></li>
+<li>Do <code>PEOPLE</code> přidej/uprav řádek <code>klic: { name: &quot;Jméno&quot;, email: &quot;adresa@panopro.cz&quot; }</code></li>
+<li>Případně uprav <code>ROUTING</code>, aby kategorie mířila na nový klíč</li>
+<li>Směrování se přizpůsobí samo — nic dalšího není potřeba</li>
+</ol>
+<h3>Úprava kontextu firmy</h3>
+<p>Uprav text v <code>BUSINESS_CONTEXT</code> (čím konkrétnější, tím přesnější třídění) nebo <code>URGENCY_HINTS</code>.</p>
+<hr>
+<h2>5. Konfigurace (<code>src/config.ts</code>)</h2>
+<table>
+<thead>
+<tr>
+<th>Parametr</th>
+<th>Hodnota</th>
+<th>Kde / poznámka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>model</code></td>
+<td><code>claude-opus-4-8</code></td>
+<td>AI model pro klasifikaci</td>
+</tr>
+<tr>
+<td><code>dryRun</code></td>
+<td><code>true</code> / <code>false</code></td>
+<td><strong><code>true</code> = nic se neodesílá</strong> (bezpečně). Přepni na <code>false</code> pro ostrý provoz</td>
+</tr>
+<tr>
+<td><code>mailboxes.gmail.connectionId</code></td>
+<td>ID připojení</td>
+<td>Zjistíš přes <code>setup.ts</code></td>
+</tr>
+<tr>
+<td><code>mailboxes.outlook.connectionId</code></td>
+<td>ID připojení</td>
+<td>dtto</td>
+</tr>
+<tr>
+<td><code>crm.connectionId</code></td>
+<td>HubSpot připojení</td>
+<td>Potřebuje <strong>write scope</strong> (jinak 403)</td>
+</tr>
+<tr>
+<td><code>receivables.level1Days</code></td>
+<td><code>1</code></td>
+<td>Práh 1. upomínky (dní po splatnosti)</td>
+</tr>
+<tr>
+<td><code>receivables.level2Days</code></td>
+<td><code>7</code></td>
+<td>Práh 2. upomínky</td>
+</tr>
+<tr>
+<td><code>receivables.escalationDays</code></td>
+<td><code>14</code></td>
+<td>Práh eskalace</td>
+</tr>
+<tr>
+<td><code>excel.workbookId/worksheetId</code></td>
+<td>prázdné</td>
+<td>Vyplň přes <code>npm run excel:setup</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>6. API klíč (<code>.env</code>)</h2>
+<p>Anthropic API klíč je v souboru <code>.env</code> v kořeni projektu:</p>
+<pre><code>ANTHROPIC_API_KEY=sk-ant-api03-tvuj-klic
+</code></pre>
+<p><strong>Nikdy necommituj klíč do repozitáře!</strong> <code>.env</code> je v <code>.gitignore</code>. Klíč získáš na <code>https://console.anthropic.com</code> → Settings → API Keys.</p>
+<hr>
+<h2>7. Stav a paměť (<code>.state/</code>)</h2>
+<table>
+<thead>
+<tr>
+<th>Soubor</th>
+<th>Obsah</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>processed.json</code></td>
+<td>ID už zpracovaných e-mailů (kurzor) + watchlist poptávek</td>
+</tr>
+<tr>
+<td><code>invoices.json</code></td>
+<td>Registr faktur — zdroj pravdy pro Moduly 3 a 4</td>
+</tr>
+</tbody></table>
+<p>Proměnná <code>AGENT_STATE_DIR</code> přesměruje stav jinam — používá ji <code>demo.ts</code>, aby testovací data nešpinila ostrý registr:</p>
+<pre><code>AGENT_STATE_DIR=cesta\k\test-slozce npm run demo
+</code></pre>
+<hr>
+<h2>8. Dashboard</h2>
+<h3>Jak funguje</h3>
+<p><code>dashboard.ts</code> vezme výsledky běhu a vykreslí je do <strong>samostatného <code>dashboard.html</code></strong> (data „zapečená&quot; dovnitř → funguje offline). Generuje se automaticky na konci <code>npm run demo</code>.</p>
+<p>Sekce: KPI karty → e-mailová triage → registr faktur → pohledávky s agingem. Štítek vpravo nahoře (<strong>TESTOVACÍ REŽIM / OSTRÝ PROVOZ</strong>) se řídí podle <code>config.dryRun</code>.</p>
+<h3>Úprava vzhledu</h3>
+<p>Renderer má tři funkce v <code>src/dashboard.ts</code>: <code>renderStyles()</code> (CSS), <code>renderDashboardBody()</code> (obsah), <code>renderDashboardHtml()</code> (celý soubor). Logo = crosshair značka převzatá z PANOPRO Advisoru.</p>
+<hr>
+<h2>9. Lokální vývoj / spuštění</h2>
+<h3>Požadavky</h3>
+<ul>
+<li>Node.js 18+ (vyvíjeno na 24), npm</li>
+<li>Vyplněný <code>.env</code> s <code>ANTHROPIC_API_KEY</code></li>
+</ul>
+<h3>Příkazy</h3>
+<pre><code class="language-bash">cd C:\Users\amati\zapier-sdk
+npm install            # instalace závislostí (jednorázově)
+
+npm run demo           # bezpečný test (ukázková data) + vygeneruje dashboard.html
+npm run triage         # ostrý běh nad reálnými schránkami (řídí dryRun)
+npm run receivables    # samostatný běh pohledávek
+npm run excel:setup    # najde workbookId/worksheetId pro Excel zrcadlo
+npm run check          # typová kontrola (tsc --noEmit)
+</code></pre>
+<blockquote>
+<p><strong>Začni vždy <code>npm run demo</code></strong> — je bezpečný, nic neodesílá a hned uvidíš výstup i dashboard.</p>
+</blockquote>
+<hr>
+<h2>10. Deploy dashboardu</h2>
+<h3>Azure Static Web Apps (hlavní)</h3>
+<p>Dashboard se nasazuje ručně přes SWA CLI.</p>
+<pre><code class="language-bash"># 1. přegeneruj dashboard
+cd C:\Users\amati\zapier-sdk &amp;&amp; npm run demo
+
+# 2. zkopíruj dashboard.html jako index.html do ČISTÉ podsložky ./app
+#    (kvůli bugu se zdvojením absolutní cesty na Windows)
+
+# 3. získej deployment token
+az staticwebapp secrets list -n panopro-backoffice-dashboard -g rg-panopro-dashboard --query properties.apiKey -o tsv
+
+# 4. nasaď (z rodičovské složky, app-location RELATIVNÍ)
+swa deploy ./app --env production
+</code></pre>
+<h3>Ověření deploye</h3>
+<ol>
+<li>Otevři <code>https://black-mushroom-06036841e.7.azurestaticapps.net</code></li>
+<li>Ctrl+Shift+R (hard refresh)</li>
+</ol>
+<h3>Azure Portal</h3>
+<ul>
+<li><strong>Resource:</strong> <code>panopro-backoffice-dashboard</code> (Static Web App, Free tier)</li>
+<li><strong>Resource group:</strong> <code>rg-panopro-dashboard</code> · <strong>Region:</strong> West US 2</li>
+<li><strong>Účet:</strong> <a href="mailto:neuvedeno">neuvedeno</a></li>
+</ul>
+<h3>GitHub Pages (záloha)</h3>
+<p>Repo <code>Traiva2911/panopro-backoffice-dashboard</code> (public) → commit <code>index.html</code> do <code>main</code> → živé na <code>https://traiva2911.github.io/panopro-backoffice-dashboard/</code>. Push vyžaduje noreply e-mail <code>neuvedeno</code>.</p>
+<hr>
+<h2>11. Styling dashboardu</h2>
+<p>Styly generuje <code>renderStyles()</code> v <code>src/dashboard.ts</code>. Prefix tříd <code>.pano-</code> / <code>.pd-</code>.</p>
+<pre><code class="language-css">--cyan: #0891b2        /* azurová – akcent (světlé téma) */
+--ink:  #0f2233        /* hlavní text */
+--bg:   #f4f7fb        /* pozadí */
+--card: #ffffff        /* karty */
+/* logo crosshair + tmavý header: #00E5FF na #0a1626 (z advisoru) */
+</code></pre>
+<p>Status barvy: zelená <code>#15a34a</code> (ok), amber <code>#d97706</code> (pozor), červená <code>#dc2626</code> (po splatnosti / chybí doklad).</p>
+<hr>
+<h2>12. Bezpečnost</h2>
+<ul>
+<li><strong><code>dryRun: true</code></strong> dokud není výstup ověřen — pojistka proti nechtěnému odeslání.</li>
+<li><code>ANTHROPIC_API_KEY</code> jen v <code>.env</code> (necommitovat); deployment token nikdy v kódu.</li>
+<li><strong>Dashboard je veřejný</strong> → momentálně <strong>jen demo data</strong>. Před nasazením ostrých dat přidat přihlášení (Azure SWA: Entra ID / heslo).</li>
+<li>HubSpot zápis vyžaduje write scope na připojení.</li>
+</ul>
+<hr>
+<h2>13. Co zbývá / roadmap</h2>
+<ol>
+<li>Ověřit, že PANOPRO maily chodí do čtené schránky (jinak vyměnit <code>connectionId</code> za <code>info@panopro.cz</code>).</li>
+<li><strong>Denní souhrn do e-mailu</strong> (uzavře „upozornění na důležité e-maily&quot; + „reporting pohledávek&quot;).</li>
+<li><strong>Čtení PDF příloh</strong> u faktur (teď jen text náhledu).</li>
+<li>Aktivovat Excel zrcadlo pro účetní.</li>
+<li>Přepnout <code>dryRun: false</code> + naplánovat běh (~15 min, Plánovač úloh Windows).</li>
+<li>Dashboard: přidat přihlášení, auto-deploy z GitHubu, volitelně doména <code>dashboard.panopro.cz</code>.</li>
+</ol>
+<hr>
+<h1>ČÁST B — Pro Víťu (předvádění a prodej)</h1>
+<blockquote>
+<p>Lidský průvodce: co to je, co to řeší a jak to ukázat klientovi. Techniku řeší Andrea — ty potřebuješ rozumět hodnotě a umět to předvést.</p>
+</blockquote>
+<h2>B1. Co to je (jednou větou)</h2>
+<p><strong>Chytrý asistent, který za firmu obhospodařuje příchozí e-maily, účetní podklady, CRM a pohledávky</strong> — sám je třídí, připravuje odpovědi a hlídá, co je potřeba. Nenahrazuje lidi — bere jim z krku nudnou ruční práci a říká, co vyžaduje pozornost.</p>
+<h2>B2. Co to řeší (tohle prodáváš)</h2>
+<table>
+<thead>
+<tr>
+<th>Oblast</th>
+<th>Bolest klienta</th>
+<th>Co agent udělá</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>📨 <strong>E-maily</strong></td>
+<td>„Chodí nám stovky mailů, něco zapadne.&quot;</td>
+<td>Roztřídí, připraví odpověď, pošle správné osobě</td>
+</tr>
+<tr>
+<td>💼 <strong>CRM / obchod</strong></td>
+<td>„Poptávky se ztrácejí.&quot;</td>
+<td>Založí obchodní případ a úkol, hlídá nezodpovězené</td>
+</tr>
+<tr>
+<td>🧾 <strong>Účetnictví</strong></td>
+<td>„Faktury přepisujeme ručně.&quot;</td>
+<td>Vytáhne dodavatele, částku, splatnost, VS; hlídá chybějící doklad</td>
+</tr>
+<tr>
+<td>💰 <strong>Pohledávky</strong></td>
+<td>„Zapomínáme upomínat.&quot;</td>
+<td>Hlídá po splatnosti, sám pošle upomínky a eskaluje</td>
+</tr>
+</tbody></table>
+<p><strong>Prodejní věta:</strong> <em>„Ušetří backoffice hodiny denně a nic důležitého nezapadne.&quot;</em></p>
+<h2>B3. Jak to ukázat klientovi</h2>
+<p><strong>A) Dashboard (nejrychlejší):</strong> otevři odkaz <code>https://black-mushroom-06036841e.7.azurestaticapps.net</code> — přehledná palubní deska, funguje na mobilu i na plátně.</p>
+<p><strong>B) „Mozek&quot; naživo (působivější, u Andrey):</strong> příkaz <code>npm run demo</code> ukáže, jak agent naživo třídí ukázkové e-maily. Bezpečné — nic se neodešle.</p>
+<blockquote>
+<p>V dashboardu jsou teď <strong>ukázková data</strong> (smyšlené Alfa/Beta/Gama) — na demo ideální, žádná citlivá data ven nejdou.</p>
+</blockquote>
+<h2>B4. Mluvící body k dashboardu</h2>
+<table>
+<thead>
+<tr>
+<th>Co na obrazovce</th>
+<th>Co řekneš</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Karty nahoře (KPI)</td>
+<td><em>„Hned vidíš, kolik toho agent zpracoval a co hoří.&quot;</em></td>
+</tr>
+<tr>
+<td>Poptávka → úkol + odpověď</td>
+<td><em>„Poptávku sám pozná, založí v CRM a připraví odpověď.&quot;</em></td>
+</tr>
+<tr>
+<td>Faktura → částka, VS, splatnost</td>
+<td><em>„Z mailu vytáhne fakturační údaje pro účetní.&quot;</em></td>
+</tr>
+<tr>
+<td>Červené „Chybí doklad&quot;</td>
+<td><em>„Sám hlídá, když k faktuře chybí doklad.&quot;</em></td>
+</tr>
+<tr>
+<td>Pohledávky → upomínky + eskalace</td>
+<td><em>„Hlídá neplatiče a sám stupňuje upomínky.&quot;</em></td>
+</tr>
+</tbody></table>
+<h2>B5. Časté otázky klientů</h2>
+<ul>
+<li><strong>„Nahradí nám to lidi?&quot;</strong> → Ne. Bere jim ruční nudnou práci, lidi dělají rozhodnutí.</li>
+<li><strong>„Co naše data?&quot;</strong> → Běží na firemních schránkách klienta, nic se neposílá navíc. Lze chránit přihlášením.</li>
+<li><strong>„Posílá to maily samo?&quot;</strong> → Defaultně ne — připravuje koncepty, člověk je odentruje. Naostro až klient řekne.</li>
+<li><strong>„Jak dlouho trvá nasadit?&quot;</strong> → Základ rychle; doladění pár hodin technické práce (Andrea).</li>
+<li><strong>„Funguje to česky?&quot;</strong> → Ano, celé v češtině.</li>
+</ul>
+<h2>B6. Dělba práce</h2>
+<ul>
+<li><strong>Ty (Víťa):</strong> sháníš klienty, předvádíš (odkaz + mluvící body), zjistíš potřeby.</li>
+<li><strong>Andrea:</strong> technické nasazení, napojení schránek/CRM, doladění, údržba.</li>
+</ul>
+<p>Když klient řekne „ano&quot;, předáš Andree: <strong>jakou má schránku (Gmail/Outlook), jaké CRM, kdo co ve firmě řeší.</strong></p>
+</div>
+<div class="doc-foot">PANOPRO · AI Backoffice Agent · interní dokumentace</div></main>
+</body></html>
