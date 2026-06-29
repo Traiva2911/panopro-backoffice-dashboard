@@ -7,8 +7,8 @@
 *{box-sizing:border-box;}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;}
 .doc-head{background:var(--navy);color:#eafdff;padding:18px 24px;display:flex;align-items:center;gap:13px;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(0,229,255,.18);}
-.doc-head .wm{font-family:'Exo 2',sans-serif;font-weight:800;font-size:20px;letter-spacing:.14em;}
-.doc-head .sub{font-size:9px;letter-spacing:.18em;color:#00b8cc;text-transform:uppercase;margin-top:2px;}
+.doc-logo{height:30px;width:auto;object-fit:contain;}
+.doc-prod{font-size:10px;letter-spacing:.16em;color:#62cfe6;text-transform:uppercase;padding-left:14px;border-left:1px solid rgba(0,229,255,.25);}
 main{max-width:900px;margin:24px auto;padding:0 20px 60px;}
 .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px 38px;box-shadow:0 1px 3px rgba(15,34,51,.05);}
 h1{font-family:'Exo 2',sans-serif;font-size:25px;font-weight:800;color:var(--navy);margin:34px 0 14px;letter-spacing:.01em;}
@@ -34,15 +34,7 @@ strong{color:var(--navy);font-weight:600;}
 .doc-foot{text-align:center;color:var(--muted);font-size:11px;margin-top:18px;}
 </style></head>
 <body>
-<div class="doc-head"><svg width="34" height="34" viewBox="0 0 34 34" fill="none" aria-label="PANOPRO">
-<defs><linearGradient id="chl" x1="0" y1="0" x2="34" y2="34"><stop stop-color="#0A1F3A"/><stop offset="1" stop-color="#071428"/></linearGradient></defs>
-<rect width="34" height="34" rx="9" fill="url(#chl)" stroke="rgba(0,229,255,.28)" stroke-width="1"/>
-<line x1="17" y1="4" x2="17" y2="12" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<line x1="17" y1="22" x2="17" y2="30" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<line x1="4" y1="17" x2="12" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<line x1="22" y1="17" x2="30" y2="17" stroke="#00E5FF" stroke-width="1.5" stroke-linecap="round"/>
-<circle cx="17" cy="17" r="4.5" stroke="#00E5FF" stroke-width="1.5" fill="none"/>
-<circle cx="17" cy="17" r="1.5" fill="#00E5FF"/></svg><div><div class="wm">PANOPRO</div><div class="sub">AI Backoffice Agent · Dokumentace</div></div></div>
+<div class="doc-head"><img class="doc-logo" src="https://panopro.cz/wp-content/uploads/2026/01/panopro-logo-claim-bile-2026.png" alt="PANOPRO"><span class="doc-prod">AI Backoffice Agent · Dokumentace</span></div>
 <main><div class="card"><h1>AI Backoffice Agent — Dokumentace</h1>
 <p>AI agent, který automatizuje firemní backoffice PANOPRO: třídění e-mailů, CRM úkoly, účetní podklady a hlídání pohledávek. „Mozkem&quot; je Claude, „rukama&quot; Zapier.</p>
 <p><strong>Dashboard (produkční URL):</strong> <code>https://black-mushroom-06036841e.7.azurestaticapps.net</code>
@@ -284,7 +276,7 @@ strong{color:var(--navy);font-weight:600;}
 <p><code>dashboard.ts</code> vezme výsledky běhu a vykreslí je do <strong>samostatného <code>dashboard.html</code></strong> (data „zapečená&quot; dovnitř → funguje offline). Generuje se automaticky na konci <code>npm run demo</code>.</p>
 <p>Sekce: KPI karty → e-mailová triage → registr faktur → pohledávky s agingem. Štítek vpravo nahoře (<strong>TESTOVACÍ REŽIM / OSTRÝ PROVOZ</strong>) se řídí podle <code>config.dryRun</code>.</p>
 <h3>Úprava vzhledu</h3>
-<p>Renderer má tři funkce v <code>src/dashboard.ts</code>: <code>renderStyles()</code> (CSS), <code>renderDashboardBody()</code> (obsah), <code>renderDashboardHtml()</code> (celý soubor). Logo = crosshair značka převzatá z PANOPRO Advisoru.</p>
+<p>Renderer má tři funkce v <code>src/dashboard.ts</code>: <code>renderStyles()</code> (CSS), <code>renderDashboardBody()</code> (obsah), <code>renderDashboardHtml()</code> (celý soubor). Logo = oficiální obrázek PANOPRO z panopro.cz (bílá verze s claimem) — stejný jako PANOPRO Advisor.</p>
 <hr>
 <h2>9. Lokální vývoj / spuštění</h2>
 <h3>Požadavky</h3>
@@ -341,7 +333,7 @@ swa deploy ./app --env production
 --ink:  #0f2233        /* hlavní text */
 --bg:   #f4f7fb        /* pozadí */
 --card: #ffffff        /* karty */
-/* logo crosshair + tmavý header: #00E5FF na #0a1626 (z advisoru) */
+/* logo = oficiální obrázek PANOPRO (bílá verze) na tmavém headeru #0a1626 */
 </code></pre>
 <p>Status barvy: zelená <code>#15a34a</code> (ok), amber <code>#d97706</code> (pozor), červená <code>#dc2626</code> (po splatnosti / chybí doklad).</p>
 <hr>
