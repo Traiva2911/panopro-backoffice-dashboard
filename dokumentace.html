@@ -39,7 +39,7 @@ strong{color:var(--navy);font-weight:600;}
 <p>AI agent, který automatizuje firemní backoffice PANOPRO: třídění e-mailů, CRM úkoly, účetní podklady a hlídání pohledávek. „Mozkem&quot; je Claude, „rukama&quot; Zapier.</p>
 <p><strong>Dashboard (produkční URL):</strong> <code>https://black-mushroom-06036841e.7.azurestaticapps.net</code>
 <strong>Repozitář dashboardu:</strong> <code>https://github.com/Traiva2911/panopro-backoffice-dashboard</code> (větev <code>main</code>)
-<strong>Kód agenta:</strong> lokální projekt <code>C:\Users\amati\zapier-sdk</code> (TypeScript, Node 24)
+<strong>Kód agenta:</strong> lokální projekt <code>C:\Users\amati\ai-backoffice-agent</code> (TypeScript, Node 24)
 <strong>Hosting dashboardu:</strong> Azure Static Web Apps (Free tier) + GitHub Pages (záloha)</p>
 <hr>
 <h2>1. Pokrytí zadání</h2>
@@ -264,7 +264,7 @@ strong{color:var(--navy);font-weight:600;}
 </ol>
 <hr>
 <h2>4. Struktura souborů</h2>
-<pre><code>zapier-sdk/
+<pre><code>ai-backoffice-agent/
 ├── src/
 │   ├── index.ts            # Vstupní bod ostrého běhu (npm run triage)
 │   ├── triage.ts           # ★ Orchestrace ticku (načti → klasifikuj → akce)
@@ -440,7 +440,7 @@ strong{color:var(--navy);font-weight:600;}
 <li>Vyplněný <code>.env</code> s <code>ANTHROPIC_API_KEY</code></li>
 </ul>
 <h3>Příkazy</h3>
-<pre><code class="language-bash">cd C:\Users\amati\zapier-sdk
+<pre><code class="language-bash">cd C:\Users\amati\ai-backoffice-agent
 npm install            # instalace závislostí (jednorázově)
 npm run demo           # bezpečný test (ukázková data) + vygeneruje dashboard.html
 npm run triage         # ostrý běh nad reálnými schránkami (řídí dryRun)
@@ -455,7 +455,7 @@ npm run docs:html      # vygeneruje HTML verzi této dokumentace
 <hr>
 <h2>12. Deploy dashboardu</h2>
 <h3>Azure Static Web Apps (hlavní)</h3>
-<pre><code class="language-bash">cd C:\Users\amati\zapier-sdk &amp;&amp; npm run demo
+<pre><code class="language-bash">cd C:\Users\amati\ai-backoffice-agent &amp;&amp; npm run demo
 # zkopíruj dashboard.html jako index.html do ČISTÉ podsložky ./app
 # token: az staticwebapp secrets list -n panopro-backoffice-dashboard -g rg-panopro-dashboard --query properties.apiKey -o tsv
 swa deploy ./app --env production   # z rodičovské složky, app-location RELATIVNÍ
