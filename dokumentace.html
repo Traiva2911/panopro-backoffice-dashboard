@@ -42,6 +42,195 @@ strong{color:var(--navy);font-weight:600;}
 <strong>Kód agenta:</strong> lokální projekt <code>C:\Users\amati\ai-backoffice-agent</code> (TypeScript, Node 24)
 <strong>Hosting dashboardu:</strong> Azure Static Web Apps (Free tier) + GitHub Pages (záloha)</p>
 <hr>
+<h2>Orientační náklady a časová náročnost</h2>
+<h3>Měsíční provozní náklady (třetí strany)</h3>
+<table>
+<thead>
+<tr>
+<th>Služba</th>
+<th>Tier</th>
+<th>Měsíční náklad</th>
+<th>Poznámka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Azure Static Web Apps</strong></td>
+<td>Free</td>
+<td><strong>0 Kč</strong></td>
+<td>Hosting dashboardu; 100 GB bandwidth/měsíc</td>
+</tr>
+<tr>
+<td><strong>Anthropic API</strong> (Claude Opus 4.8)</td>
+<td>Pay-per-use</td>
+<td><strong>~150–800 Kč</strong></td>
+<td>Klasifikace e-mailů; závisí na objemu, viz kalkulace níže</td>
+</tr>
+<tr>
+<td><strong>Zapier</strong> (napojení Gmail/Outlook/HubSpot)</td>
+<td>Free / Placený</td>
+<td><strong>0 Kč</strong> (nízký provoz) až <strong>~700+ Kč</strong></td>
+<td>Free tier: 100 tasků/měsíc; při běhu po 15 min (roadmap bod 5) bude třeba placený plán</td>
+</tr>
+<tr>
+<td><strong>HubSpot</strong> (CRM)</td>
+<td>dle plánu firmy</td>
+<td><strong>0 Kč</strong> (pokud už PANOPRO HubSpot používá)</td>
+<td>Mimo rozsah tohoto projektu — agent využívá existující účet</td>
+</tr>
+<tr>
+<td><strong>GitHub</strong></td>
+<td>Free</td>
+<td><strong>0 Kč</strong></td>
+<td>Repo + záložní GitHub Pages</td>
+</tr>
+<tr>
+<td><strong>Doména</strong> (volitelná)</td>
+<td>—</td>
+<td><strong>~250 Kč/rok</strong></td>
+<td>Např. <code>dashboard.panopro.cz</code> (subdoména = zdarma přes CNAME)</td>
+</tr>
+<tr>
+<td><strong>Celkem</strong></td>
+<td></td>
+<td><strong>~150–800 Kč/měsíc</strong></td>
+<td>Při nízkém až středním objemu e-mailů a Free tarifech třetích stran</td>
+</tr>
+</tbody></table>
+<h3>Kalkulace tokenů Anthropic API</h3>
+<p>Model <code>claude-opus-4-8</code> — oficiální ceny (červenec 2026):</p>
+<table>
+<thead>
+<tr>
+<th>Parametr</th>
+<th>Hodnota</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Input</td>
+<td>$5 / 1M tokenů</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>$25 / 1M tokenů</td>
+</tr>
+<tr>
+<td>Průměrná klasifikace e-mailu</td>
+<td>~2 000 tokenů input (systémový prompt + taxonomy + text e-mailu), ~400 tokenů output (strukturovaný Zod objekt)</td>
+</tr>
+</tbody></table>
+<p><strong>Příklad:</strong> 300 e-mailů/měsíc:</p>
+<ul>
+<li>Input: 300 × 2 000 = 600 000 tokenů → $3,00 (~72 Kč)</li>
+<li>Output: 300 × 400 = 120 000 tokenů → $3,00 (~72 Kč)</li>
+<li><strong>Celkem: ~150 Kč/měsíc</strong></li>
+</ul>
+<blockquote>
+<p>Při vyšším provozu (1 000 e-mailů/měsíc) → ~480 Kč. Modul pohledávek (upomínky, eskalace) běží nad již staženými daty a spotřebu navyšuje jen minimálně.</p>
+</blockquote>
+<h3>Časová náročnost</h3>
+<table>
+<thead>
+<tr>
+<th>Fáze</th>
+<th>Náročnost</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Vývoj agenta (4 moduly: e-maily, CRM, účetní agenda, pohledávky)</td>
+<td><strong>hotovo</strong> ✅ — implementováno a otestováno</td>
+</tr>
+<tr>
+<td>Implementace / nasazení do ostrého provozu (přepnutí <code>dryRun: false</code>, ověření schránek, naplánování běhu)</td>
+<td><strong>~0,5–1 den</strong></td>
+</tr>
+<tr>
+<td>Rozšíření: čtení PDF příloh u faktur</td>
+<td><strong>~1–2 dny</strong> vývoje</td>
+</tr>
+<tr>
+<td>Rozšíření: denní e-mailový souhrn</td>
+<td><strong>~0,5–1 den</strong> vývoje</td>
+</tr>
+<tr>
+<td>Přihlášení k dashboardu (Entra ID / heslo)</td>
+<td><strong>~2–4 hod</strong> vývoje</td>
+</tr>
+</tbody></table>
+<h3>Časová náročnost správy</h3>
+<table>
+<thead>
+<tr>
+<th>Činnost</th>
+<th>Frekvence</th>
+<th>Čas</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Přidání / úprava odpovědné osoby (<code>taxonomy.ts</code>)</td>
+<td>dle potřeby</td>
+<td>5–10 min</td>
+</tr>
+<tr>
+<td>Úprava pravidel klasifikace / kontextu firmy</td>
+<td>dle potřeby</td>
+<td>10–30 min</td>
+</tr>
+<tr>
+<td>Kontrola registru faktur a pohledávek</td>
+<td>týdně</td>
+<td>5–10 min</td>
+</tr>
+<tr>
+<td>Deploy dashboardu po úpravě</td>
+<td>dle potřeby</td>
+<td>~2 min (<code>npm run demo</code> + <code>swa deploy</code>)</td>
+</tr>
+<tr>
+<td>Monitoring API spotřeby</td>
+<td>měsíčně</td>
+<td>5 min (Anthropic dashboard)</td>
+</tr>
+<tr>
+<td>Kontrola Zapier připojení (Gmail/Outlook/HubSpot)</td>
+<td>měsíčně</td>
+<td>5 min</td>
+</tr>
+<tr>
+<td><strong>Celkem běžná správa</strong></td>
+<td></td>
+<td><strong>~1–2 h/měsíc</strong></td>
+</tr>
+</tbody></table>
+<h3>Škálovací prahy</h3>
+<table>
+<thead>
+<tr>
+<th>Práh</th>
+<th>Co se stane</th>
+<th>Řešení</th>
+<th>Náklad navíc</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>100 Zapier tasků/měsíc</td>
+<td>Připojení schránek/CRM přestane fungovat</td>
+<td>Upgrade na Starter ($29.99/měs)</td>
+<td>~700 Kč/měsíc</td>
+</tr>
+<tr>
+<td>100 GB bandwidth/měsíc</td>
+<td>Azure SWA omezí dashboard</td>
+<td>Upgrade na Standard ($9/měs)</td>
+<td>~210 Kč/měsíc</td>
+</tr>
+<tr>
+<td>Vysoký objem e-mailů</td>
+<td>Anthropic faktura roste</td>
+<td>Kratší prompt, prompt caching, případně levnější model</td>
+<td>závisí na objemu</td>
+</tr>
+</tbody></table>
+<hr>
 <h2>1. Pokrytí zadání</h2>
 <p>Všechny čtyři oblasti zadání jsou <strong>implementované a otestované</strong>. U každé schopnosti je uvedeno, na jaké integraci je funkčnost ověřená a čím ji lze nahradit — agent <strong>není uzamčen</strong> na konkrétní nástroj.</p>
 <h3>1. E-mailová agenda</h3>
